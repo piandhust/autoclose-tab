@@ -1,84 +1,62 @@
-//uses classList, setAttribute, and querySelectorAll
-//if you want this to work in IE8/9 youll need to polyfill these
-(function(){
-    var d = document,
-    accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
-    setAria,
-    setAccordionAria,
-    switchAccordion,
-    touchSupported = ('ontouchstart' in window),
-    pointerSupported = ('pointerdown' in window);
-
-    skipClickDelay = function(e){
-        e.preventDefault();
-        e.target.click();
-    }
-
-    setAriaAttr = function(el, ariaType, newProperty){
-    el.setAttribute(ariaType, newProperty);
-};
-
-setAccordionAria = function(el1, el2, expanded){
-    switch(expanded) {
-    case "true":
-    setAriaAttr(el1, 'aria-expanded', 'true');
-    setAriaAttr(el2, 'aria-hidden', 'false');
-    break;
-    case "false":
-    setAriaAttr(el1, 'aria-expanded', 'false');
-    setAriaAttr(el2, 'aria-hidden', 'true');
-    break;
-    default:
-        break;
-    }
-};
-
-//function
-switchAccordion = function(e) {
-    console.log("triggered");
-    e.preventDefault();
-    var thisAnswer = e.target.parentNode.nextElementSibling;
-    var thisQuestion = e.target;
+(() => { 
+    // state variables
+    let toDoListArray = [];
+    // ui variables
+    const form = document.querySelector(".form"); 
+    const input = form.querySelector(".form__input");
+    const ul = document.querySelector(".toDoList"); 
+  
+    // event listeners
+    form.addEventListener('submit', e => {
+      // prevent default behaviour - Page reload
+      e.preventDefault();
+      // give item a unique ID
+      let itemId = String(Date.now());
+      // get/assign input value
+      let toDoItem = input.value;
+      //pass ID and item into functions
+      addItemToDOM(itemId , toDoItem);
+      addItemToArray(itemId, toDoItem);
+      // clear the input box. (this is default behaviour but we got rid of that)
+      input.value = '';
+    });
     
-    if(thisAnswer.classList.contains('is-collapsed')) {
-        setAccordionAria(thisQuestion, thisAnswer, 'true');
-    } else {
-        setAccordionAria(thisQuestion, thisAnswer, 'false');
+    ul.addEventListener('click', e => {
+      let id = e.target.getAttribute('data-id')
+      if (!id) return // user clicked in something else      
+      //pass id through to functions
+      removeItemFromDOM(id);
+      removeItemFromArray(id);
+    });
+    
+    // functions 
+    function addItemToDOM(itemId, toDoItem) {    
+      // create an li
+      const li = document.createElement('li')
+      li.setAttribute("data-id", itemId);
+      // add toDoItem text to li
+      li.innerText = toDoItem
+      // add li to the DOM
+      ul.appendChild(li);
     }
-
-    thisQuestion.classList.toggle('is-collapsed');
-    thisQuestion.classList.toggle('is-expanded');
-    thisAnswer.classList.toggle('is-collapsed');
-    thisAnswer.classList.toggle('is-expanded');
-    thisAnswer.classList.toggle('animateIn');
-};
-
-for (var i=0,len=accordionToggles.length; i<len; i++) {
-    if(touchSupported) {
-        accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
+    
+    function addItemToArray(itemId, toDoItem) {
+      // add item to array as an object with an ID so we can find and delete it later
+      toDoListArray.push({ itemId, toDoItem});
+      console.log(toDoListArray)
     }
-
-    if(pointerSupported){
-        accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
+    
+    function removeItemFromDOM(id) {
+      // get the list item by data ID
+      var li = document.querySelector('[data-id="' + id + '"]');
+      // remove list item
+      ul.removeChild(li);
     }
-
-    accordionToggles[i].addEventListener('click', switchAccordion, false);
-}
-
-})();
-
-
-document.getElementById("add-button").addEventListener("click", addWebsite);
-function addWebsite(){
-    let dlTag = document.getElementsByClassName("accordion")[0].getElementsByTagName('dl')[0];
-
-    let newDtTag = document.createElement('dt');
-    let newATag = document.createElement('a');
-    newATag.setAttribute('aria-expanded', 'false');
-    newATag.setAttribute('aria-expanded', 'false');
-    newATag.setAttribute('aria-controls', 'accordion1');
-    newATag.setAttribute('class', 'accordion-title accordionTitle js-accordionTrigger')
-    newDtTag.appendChild(newATag)
-
-    dlTag.appendChild(newDtTag);
-}
+    
+    function removeItemFromArray(id) {
+      // create a new toDoListArray with all li's that don't match the ID
+      toDoListArray = toDoListArray.filter(item => item.itemId !== id);
+      console.log(toDoListArray);
+    }
+    
+  })();
