@@ -1,0 +1,20 @@
+{
+    "name": "Chrome autoclose tab",
+    "description": "Auto close tab with domain predefined",
+    "version": "1.0",
+    "manifest_version": 3,
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["storage"],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "16": "/imgs/icon.jpg",
+        "48": "/imgs/icon.jpg"
+    },
+    "content_security_policy": {
+        "extension_page": "default-src 'self'"
+      } 
+}
