@@ -2,6 +2,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <section class="container">
@@ -15,7 +16,9 @@
                id="todo" 
                name="to-do"
                size="30"
-               required>
+               required
+               pattern="https?://.+"
+               title="Include http://">
           <button class="button"><span>Add</span></button>
         </div>
       </form>

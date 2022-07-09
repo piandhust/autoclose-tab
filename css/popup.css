@@ -120,6 +120,19 @@ body {
   position: relative;
   padding: 0.5rem;
 }
-.toDoList li:hover {
+/* .toDoList li:hover {
   text-decoration: line-through wavy #24bffb;
+} */
+
+.removeItemBtn {
+  margin-left: 50px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.fa-trash-o {
+  pointer-events: none;
+  color: #fa0000;
+  font-size: 24px;
 }
