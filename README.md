@@ -4,6 +4,6 @@ Application is support auto close tab chrome extension.
 
 ## Demo 
 
-Ứng dụng là phần mở rộng của Google chrome, người dùng có thể thêm url sẽ chặn trong hộp văn bản và nhập vào nút "Thêm". Mỗi url có thể thêm vào danh sách, nếu bạn truy cập vào url, tiện ích mở rộng sẽ đóng tab, điều này được sử dụng cho các bạn học sinh, sinh viên nghiện Facebook hoặc Tiktok có thể bắt đầu cai nghiện các nền tảng này:
+The app is a Google chrome extension, the user can add the url to block in the textbox and type in the "Add" button. Each url can add to the list, if you go to the url, the extension will close the tab, this is used for the students, the students who are addicted to Facebook or Tiktok can start detoxing the platforms this:
 
 ![](https://raw.githubusercontent.com/piandhust/contact-icon/main/image-collection/autoclose-tab/background.png)
