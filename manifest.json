@@ -1,12 +1,12 @@
 {
     "name": "Chrome autoclose tab",
     "description": "Auto close tab with domain predefined",
-    "version": "1.0",
+    "version": "1.0.0",
     "manifest_version": 3,
+    "permissions": ["storage", "activeTab"],
     "background": {
         "service_worker": "background.js"
     },
-    "permissions": ["storage"],
     "action": {
         "default_popup": "popup.html"
     },
